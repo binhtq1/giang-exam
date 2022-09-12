@@ -1,35 +1,42 @@
 <template>
   <div class="wrapper-app">
     <h1>Page Home</h1>
-    <ul class="list-data" v-for="(list, index) in listData" :key="index" >
-      <li>{{ list.data}}</li>
+    <ul class="list-data" v-for="(list, index) in listData" :key="index">
+      <li>{{ list.name }}</li>
     </ul>
+
+    <component-list-product :currentCatagory="currentCatagory" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import ComponentListProduct from './components/ComponentListProduct.vue'
 export default {
   name: 'App',
   components: {
-    
+    ComponentListProduct
+
   },
   data() {
     return {
-      listData:[],
-      errs: []
+      listData: [],
+      errs: [],
+      currentCatagory: null,
     }
   },
 
-  mounted() {
+  created() {
     axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories`)
-        .then(res => {
-          console.log('Result',res);
-          this.listData = res.data
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      .then(res => {
+        // console.log('Result', res);
+        this.listData = res.data
+        this.currentCatagory = res.data[1]
+        // console.log('currentCatagory', JSON.stringify(this.currentCatagory, undefined, 4));
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 }
 </script>
@@ -43,6 +50,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 .wrapper-app {
   width: 100vw;
   height: auto;
