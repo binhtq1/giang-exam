@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-filter_product">
-    <h1>ComponentFilterProduct</h1>
+    <h1>Comp FilterProduct</h1>
   </div>
 </template>
 

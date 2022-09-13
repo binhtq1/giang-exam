@@ -1,51 +1,70 @@
 <template>
-  <div class="wrapper-app">
-    <h1>Page Home</h1>
-    <ul class="list-data" v-for="(list, index) in listData" :key="index" >
-      <li>{{ list.request.status}}</li>
-    </ul>
+  <div id="app">
+    <div class="wrapper">
+      <!--categories-->
+      <div class="wrapper-left">
+        <component-categories-list :categories="categories"/>
+      </div>
+
+      <!--content right-->
+      <div class="wrapper-right">
+        <div class="sort-filter">
+          <component-filter-product />
+        </div>
+        <div class="list-product">
+          <component-list-product :currentCatagory="currentCatagory"/>
+        </div>
+        <div class="page-footer">
+          <component-limit-page />
+        </div>
+      </div>
+    </div>
   </div>
+ 
+
+  <!-- <component-list-product :currentCatagory="currentCatagory" /> -->
 </template>
 
 <script>
 import axios from 'axios'
+import ComponentCategoriesList from './components/ComponentCategoriesList.vue'
+import ComponentLimitPage from './components/ComponentLimitPage.vue'
+import ComponentFilterProduct from './components/ComponentFilterProduct.vue'
+import ComponentListProduct from './components/ComponentListProduct.vue'
+
+// import ComponentListProduct from './components/ComponentListProduct.vue'
 export default {
   name: 'App',
   components: {
-    
+    ComponentCategoriesList,
+    ComponentLimitPage,
+    ComponentFilterProduct,
+    ComponentListProduct
+
   },
   data() {
     return {
-      listData:[],
-      errs: []
+      categories: [],
+      errs: [],
+      currentCatagory: null,
     }
   },
 
-  mounted() {
+  created() {
     axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories`)
-        .then(res => {
-          console.log('Result',res);
-          this.listData = res.data
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      .then(res => {
+        console.log('Result', res);
+        this.categories = res.data
+        this.currentCatagory = res.data[0]
+        // console.log('currentCatagory', JSON.stringify(this.currentCatagory, undefined, 4));
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.wrapper-app {
-  width: 100vw;
-  height: auto;
-  border: 1px solid #ccc;
-}
+<style lang="scss" scoped>
+@import '../src/sass/wrapper-app'
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-limit_page">
-    <h1>ComponentLimitPage</h1>
+    <h1>Comp LimitPage</h1>
   </div>
 </template>
 
