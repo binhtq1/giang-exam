@@ -5,8 +5,8 @@
       <button class="category">Category</button>
     </div>
     <div class="list-categories">
-      <ul class="category-name" v-for="(list, index) in categories" :key="index">
-        <li @click="handleRenderProduct">{{list.name}}</li>
+      <ul class="category-name" v-for="(category, index) in categories" :key="index">
+        <li @click="setCurrentCategory(category)">{{category.name}}</li>
       </ul>
     </div>
   </div>
@@ -16,17 +16,18 @@
 export default {
   name: 'ComponentCategoriesList',
   props: {
-    categories: Array
+    categories: Array,
+    // currentCategory: Object
   },
   data() {
     return {
-      productItem: []
     }
   },
-  methods:{
-    handleRenderProduct() {
-      console.log("handleRenderProduct");
-      this.productItem = this.products.id
+  methods: {
+    setCurrentCategory(category) {
+      console.log('get product click');
+      this.$emit('get-product', category)
+      // this.currentCategory = category
     }
   }
 }

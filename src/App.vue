@@ -3,7 +3,8 @@
     <div class="wrapper">
       <!--categories-->
       <div class="wrapper-left">
-        <component-categories-list :categories="categories"/>
+        <component-categories-list :categories="categories" :currentCategory="currentCategory"
+          @get-product="getProducts" />
       </div>
 
       <!--content right-->
@@ -12,7 +13,7 @@
           <component-filter-product />
         </div>
         <div class="list-product">
-          <component-list-product :currentCatagory="currentCatagory"/>
+          <component-list-product :currentCategory="currentCategory" />
         </div>
         <div class="page-footer">
           <component-limit-page />
@@ -20,7 +21,7 @@
       </div>
     </div>
   </div>
- 
+
 
   <!-- <component-list-product :currentCatagory="currentCatagory" /> -->
 </template>
@@ -45,22 +46,36 @@ export default {
   data() {
     return {
       categories: [],
-      errs: [],
-      currentCatagory: null,
+      products: [],
+      // currentCategory: null,
+      selectedCategory: null
     }
   },
 
   created() {
     axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories`)
       .then(res => {
-        console.log('Result', res);
         this.categories = res.data
-        this.currentCatagory = res.data[0]
+        this.currentCategory = res.data[0]
         // console.log('currentCatagory', JSON.stringify(this.currentCatagory, undefined, 4));
       })
       .catch(err => {
         console.log(err);
       })
+  },
+
+  methods: {
+    // Lấy SP theo categories
+    getProducts() {
+      axios
+        .get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories/${this.selectedCategory}`)
+        .then((response) => {
+          this.products = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   }
 }
 </script>
