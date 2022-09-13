@@ -2,7 +2,7 @@
   <div class="wrapper-app">
     <h1>Page Home</h1>
     <ul class="list-data" v-for="(list, index) in listData" :key="index" >
-      <li>{{ list.data}}</li>
+      <li>{{ list.request.status}}</li>
     </ul>
   </div>
 </template>
