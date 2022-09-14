@@ -3,8 +3,9 @@
     <div class="wrapper">
       <!--categories-->
       <div class="wrapper-left">
-        <component-categories-list :categories="categories" :currentCategory="currentCategory"
-          @get-product="getProducts" />
+        <component-categories-list />
+        <!-- :categories="categories" :currentCategory="currentCategory"
+          @get-product="getProducts"-->
       </div>
 
       <!--content right-->
@@ -13,12 +14,20 @@
           <component-filter-product />
         </div>
         <div class="list-product">
-          <component-list-product :currentCategory="currentCategory" />
+          <component-list-product /> <!-- :currentCategory="currentCategory" -->
         </div>
         <div class="page-footer">
           <component-limit-page />
         </div>
       </div>
+    </div>
+
+    <!--EXAMPLE-->
+    <!-- Render list categories-->
+    <div>
+      <ul>
+        <li></li>
+      </ul>
     </div>
   </div>
 
@@ -52,11 +61,12 @@ export default {
     }
   },
 
+  // Lấy tất cả dữ liệu
   created() {
     axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories`)
       .then(res => {
         this.categories = res.data
-        this.currentCategory = res.data[0]
+        // this.currentCategory = res.data[0]
         // console.log('currentCatagory', JSON.stringify(this.currentCatagory, undefined, 4));
       })
       .catch(err => {
