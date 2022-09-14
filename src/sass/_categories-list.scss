@@ -1,37 +1,90 @@
 .wrapper-categories {
-    // button
+
+  // BUTTON
   .button-categories {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
+    justify-content: space-between;
+    margin: 20px;
 
     button {
-      width: 80%;
+      // width: 20%;
       height: 52px;
       border-radius: 5px;
       border: 1px solid #b3b3b3;
       cursor: pointer;
       font-size: 14px;
     }
+
     .conditions {
       background-color: #e6e6e6;
+      margin-bottom: 20px;
     }
     .category {
       border: 1px solid red;
     }
   }
-  // list-categories
-  .list-categories {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
 
-    .category-name {
-      list-style: none;
-      margin: 0;
-      cursor: pointer;
+  .category-product {
+    // border: 2px solid blue;
+    display: flex;
+    justify-content: space-between;
+
+    // LIST CATEGORY
+    .list-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+
+      .category-name {
+        list-style: none;
+        margin: 0;
+        cursor: pointer;
+        font-size: 20px;
+      }
+    }
+
+    // LIST PRODUCT
+    .list-product {
+      // border: 1px solid red;
+      display: flex;
+      width: 80%;
+
+      .item-product {
+        // border: 2px solid #000;
+        width: 20%;
+        padding: 10px;
+        li {
+          list-style: none;
+          img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 5px;
+          }
+        }
+
+        .name-product {
+          width: 100%;
+          font-size: 20px;
+          padding: 10px 0;
+        }
+        .price-product {
+          width: 100%;
+          padding: 5px 0;
+          font-size: 22px;
+          .price-hightlight {
+            color: red;
+          }
+        }
+        .stock-product {
+          font-size: 20px;
+          padding: 5px 0;
+        }
+        .description-product {
+          font-size: 20px;
+        }
+      }
     }
   }
 }
