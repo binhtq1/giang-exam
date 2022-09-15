@@ -6,8 +6,14 @@
         <button class="category">Category</button>
       </div>
       
+
+      <!--SORT PRODUCT-->
       <div class="filter-product">
-        <select>Selection</select>
+        <select @change="sortProduct">
+          <option value="0" >Default</option>
+          <option>Name</option>
+          <option>Price</option>
+        </select>
       </div>
     </div>
 
@@ -44,6 +50,7 @@ export default {
   data() {
     return {
       products: [],
+      sortName: null,
       selectedCategory: null
     }
   },
@@ -55,7 +62,6 @@ export default {
         .get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories/${this.selectedCategory}`)
         .then((res) => {
           this.products = res.data.products
-          // console.log('RES.DATA', res.data.products);
         })
         .catch((error) => {
           console.log(error);
@@ -64,14 +70,38 @@ export default {
 
     // HÀM XỬ LÝ KHI CLICK VÀO TỪNG TÊN CATEGORY
     getProductCategory(category) {
-      console.log('CATEGORY CLICK');
       this.selectedCategory = category.id;
       this.getProducts()
+    },
+
+    // CHANGE
+    sortProduct() {
+      console.log('CHANGE');
+      axios
+        .get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories?sortBy=name&order=desc`)
+        .then(res => {
+          this.products = res.data.products
+          console.log("PRODUCT", res.data.products);
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
-  }
+  },
+
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../sass/categories-list'
 </style>
+
+
+
+
+
+
+
+
+
+
