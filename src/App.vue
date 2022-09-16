@@ -26,12 +26,13 @@ export default {
     }
   },
 
-  // LẤY TẤT CẢ DỮ LIỆU, RENDER RA DANH SÁCH CATEGORY
+  // LẤY TẤT CẢ DỮ LIỆU
   created() {
     axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories`)
       .then(res => {
         console.log(res);
         this.categories = res.data
+        console.log("CREATED", res.data);
       })
       .catch(err => {
         console.log(err);
