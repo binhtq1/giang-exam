@@ -5,13 +5,13 @@
         <button class="conditions">Clear conditions <br>(displayd in all categories)</button> <br>
         <button class="category">Category</button>
       </div>
-      
+
 
       <!--SORT PRODUCT-->
       <div class="filter-product">
-        <select @change="sortProduct">
-          <option value="0" >Default</option>
-          <option>Name</option>
+        <select @change="sortActivePrice">
+          <option value="0">Default</option>
+          <!-- <option>Name</option> -->
           <option>Price</option>
         </select>
       </div>
@@ -30,7 +30,8 @@
         <ul class="item-product" v-for="product in products" :key="product.id">
           <li><img :src="product.thumbnail" alt="IMAGE" /></li>
           <li class="name-product"> {{ product.name }}</li>
-          <li class="price-product"> <strong>Price:</strong> <strong class="price-hightlight">{{ product.price +" "+"$"}}</strong></li>
+          <li class="price-product"> <strong>Price:</strong> <strong class="price-hightlight">{{ product.price
+          +""+"$"}}</strong></li>
           <li class="stock-product"><strong>Stock: </strong>{{ product.inStock }}</li>
           <li class="description-product"> <strong>Description:</strong> {{ product.description }}</li>
         </ul>
@@ -50,7 +51,7 @@ export default {
   data() {
     return {
       products: [],
-      sortName: null,
+      sortPrice: null,
       selectedCategory: null
     }
   },
@@ -74,18 +75,22 @@ export default {
       this.getProducts()
     },
 
-    // CHANGE
-    sortProduct() {
+    // SORT THEO PRICE
+    sortPriceProduct() {
       console.log('CHANGE');
       axios
-        .get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories?sortBy=name&order=desc`)
+        .get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories/${this.selectedCategory}/products?sortBy=price&order=asc`)
         .then(res => {
-          this.products = res.data.products
-          console.log("PRODUCT", res.data.products);
+          this.products = res.data
+          console.log("PRODUCT", res.data);
         })
         .catch(err => {
           console.log(err);
         })
+    },
+    sortActivePrice(category) {
+      this.sortPrice = category.id
+      this.sortPriceProduct()
     }
   },
 
