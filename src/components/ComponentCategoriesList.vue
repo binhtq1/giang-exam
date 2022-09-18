@@ -28,7 +28,15 @@
       </div>
 
       <!--RENDER PRODUCT THEO CATEGORY-->
-      <div class="list-product" :class="{ activeproduct: isSortListProduct}">
+      <div class="list-product" :class="{ activeproduct: isSortListProduct, loader: isLoading}">
+        <div class="hieuung3" v-if="isLoading">
+          <h2>Loading...</h2>
+          <span class="rect1"></span>
+          <span class="rect2"></span>
+          <span class="rect3"></span>
+          <span class="rect4"></span>
+          <span class="rect5"></span>
+        </div>
         <ul class="item-product" v-for="product in products" :key="product.id">
           <li><img :src="product.thumbnail" alt="IMAGE" /></li>
           <li class="name-product"> {{ product.name }}</li>
@@ -55,13 +63,15 @@ export default {
       products: [],
       sortPrice: null,
       selectedCategory: null,
-      isSortListProduct: false
+      isSortListProduct: false,
+      isLoading: false
     }
   },
 
   methods: {
     // LẤY THÔNG TIN SẢN PHẨM THEO CLICK CATEGORY
     getProducts() {
+      this.isLoading = true
       axios
         .get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories/${this.selectedCategory}`)
         .then((res) => {
@@ -70,7 +80,10 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        });
+        })
+        .finally(() => {
+          this.isLoading = false
+        })
     },
     getProductCategory(category) {
       this.selectedCategory = category.id;
@@ -80,7 +93,7 @@ export default {
 
     // SORT THEO PRICE
     sortPriceProduct() {
-      console.log('CHANGE');
+      this.isLoading = true
       axios
         .get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories/${this.selectedCategory}/products?sortBy=price&order=asc`)
         .then(res => {
@@ -89,6 +102,9 @@ export default {
         })
         .catch(err => {
           console.log(err);
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     },
     sortActivePrice(category) {
@@ -105,6 +121,7 @@ export default {
 @import '../sass/list-product';
 @import '../sass/activeproduct';
 @import '../sass/filterproduct';
+@import '../sass/loading';
 </style>
 
 
