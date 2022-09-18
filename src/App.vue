@@ -15,6 +15,12 @@
         <component-categories-list :categories="categories" />
       </div>
 
+      <!--pagination-->
+      <div class="pagination">
+        <ComponentPagination />
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -22,11 +28,13 @@
 <script>
 import axios from 'axios'
 import ComponentCategoriesList from './components/ComponentCategoriesList.vue'
+import ComponentPagination from './components/ComponentPagination.vue';
 
 export default {
   name: 'App',
   components: {
     ComponentCategoriesList,
+    ComponentPagination
   },
   data() {
     return {
@@ -63,4 +71,5 @@ export default {
 <style lang="scss" scoped>
 @import '../src/sass/wrapper-app';
 @import '../src/sass/loading';
+@import '../src/sass/pagination';
 </style>
