@@ -41,7 +41,7 @@
           <li><img :src="product.thumbnail" alt="IMAGE" /></li>
           <li class="name-product"> {{ product.name }}</li>
           <li class="price-product"> <strong>Price:</strong> <strong class="price-hightlight">{{ product.price
-          +""+"$"}}</strong></li>
+          +" "+"$"}}</strong></li>
           <li class="stock-product"><strong>Stock: </strong>{{ product.inStock }}</li>
           <li class="description-product"> <strong>Description:</strong> {{ product.description }}</li>
         </ul>

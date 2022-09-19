@@ -17,7 +17,7 @@
 
       <!--pagination-->
       <div class="pagination">
-        <ComponentPagination />
+        <ComponentPagination :isLoading="isLoading" @page-1="getDataApiPageHome" @page-2="getDataApiPage2"/>
       </div>
 
 
@@ -45,13 +45,29 @@ export default {
 
   // LẤY TẤT CẢ DỮ LIỆU
   created() {
-    this.getDataApi();
+    this.getDataApiPageHome();
   },
 
   methods: {
-    getDataApi() {
+    getDataApiPageHome() {
       this.isLoading = true;
-      axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories`)
+      axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories?page=1&limit=10`)
+        .then(res => {
+          console.log(res);
+          this.categories = res.data
+          console.log("CREATED", res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        })
+    },
+
+    getDataApiPage2() {
+      this.isLoading = true;
+      axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1/categories?page=2&limit=10`)
         .then(res => {
           console.log(res);
           this.categories = res.data

@@ -1,38 +1,32 @@
 <template>
+
   <div>
-    <button @click="pageHomeClick">1</button>
-    <button @click="page2Click">2</button>
+    <button :class="{ active: isActive}" @click="pageHomeClick(category)">1</button>
+    <button :class="{ active: isActive}" @click="page2Click(category)">2</button>
   </div>
+
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   name: 'ComponentPagination',
   data() {
     return {
-      products: []
+      isActive: false
     }
   },
   methods: {
-    pageHomeClick() {
-      console.log('click 1');
-      axios.get(`https://631ed88058a1c0fe9f594c50.mockapi.io/api/v1//categories?page=1&limit=3`)
-        .then(res => {
-          this.products = res.data
-          console.log('-------------PAGE', res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+    pageHomeClick(category) {
+      this.$emit('page-1', category)
     },
-    page2Click() {
-      console.log('click 2');
-    }
+    page2Click(category) {
+      this.$emit('page-2', category)
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../sass/pagination'
+@import '../sass/pagination';
+@import '../sass/active';
 </style>
