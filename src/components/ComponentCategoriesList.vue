@@ -3,7 +3,7 @@
     <div class="button-categories">
       <div class="button-control">
         <button class="conditions">Clear conditions <br>(displayd in all categories)</button> <br>
-        <button class="category">Category</button>
+        <button class="category">Category aaaa</button>
       </div>
 
 
@@ -23,12 +23,12 @@
       <!--RENDER LIST CATEGORY-->
       <div class="list-categories">
         <ul class="category-name" v-for="(category, index) in categories" :key="index">
-          <li @click="getProductCategory(category)"><strong>{{category.name}}</strong></li>
+          <li @click="getProductCategory(category)"><strong>{{ category.name }}</strong></li>
         </ul>
       </div>
 
       <!--RENDER PRODUCT THEO CATEGORY-->
-      <div class="list-product" :class="{ activeproduct: isSortListProduct, loader: isLoading}">
+      <div class="list-product" :class="{ activeproduct: isSortListProduct, loader: isLoading }">
         <div class="hieuung3" v-if="isLoading">
           <h2>Loading...</h2>
           <span class="rect1"></span>
@@ -41,7 +41,7 @@
           <li><img :src="product.thumbnail" alt="IMAGE" /></li>
           <li class="name-product"> {{ product.name }}</li>
           <li class="price-product"> <strong>Price:</strong> <strong class="price-hightlight">{{ product.price
-          +" "+"$"}}</strong></li>
+            + " " + "$" }}</strong></li>
           <li class="stock-product"><strong>Stock: </strong>{{ product.inStock }}</li>
           <li class="description-product"> <strong>Description:</strong> {{ product.description }}</li>
         </ul>
